@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi Despensa</title>
+  <!-- Importar Bulma desde un CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" rel="stylesheet">
+  <style>
+    /* Personalización de colores usando la paleta proporcionada */
+    :root {
+      --color-primary: #d8fd94;    /* Verde clarito */
+      --color-link: #fe9d97;       /* Rosa claro */
+      --color-light: #fffec8;      /* Amarillo claro */
+      --color-danger: #fe495f;     /* Rojo */
+      --color-warning: #bded7e;    /* Verde pasto */
+      --color-dark-green: #006400; /* Verde oscuro */
+    }
+
+    /* Sobrescribir colores de Bulma */
+    .hero.is-primary {
+      background-color: var(--color-primary); /* Verde clarito */
+    }
+
+    .title {
+      font-size: 4rem; /* Título más grande */
+      font-weight: bold;
+      text-align: center;
+      padding: 20px; /* Espacio alrededor del título */
+      border: 3px solid var(--color-dark-green); /* Borde alrededor del título */
+      border-radius: 10px; /* Bordes redondeados */
+      background-color: var(--color-light); /* Fondo amarillo claro */
+      color: var(--color-dark-green) !important; /* Asegura que el color negro se aplique */
+    }
+
+
+    .subtitle {
+      color: var(--color-link); /* Rosa claro */
+    }
+
+    /* Botón rojo con padding y espaciado */
+    .button.is-danger {
+      background-color: var(--color-danger); /* Rojo */
+      border-color: var(--color-danger);
+      padding: 15px 30px; /* Añadido padding */
+      margin-top: 20px; /* Espaciado arriba del botón */
+      margin-bottom: 20px; /* Espaciado abajo del botón */
+    }
+
+    .button.is-danger:hover {
+      background-color: var(--color-link); /* Rosa claro al pasar el mouse */
+      border-color: var(--color-link);
+    }
+
+    .button.is-info {
+      background-color: var(--color-primary); /* Verde clarito */
+      border-color: var(--color-primary);
+    }
+
+    .button.is-info:hover {
+      background-color: var(--color-warning); /* Verde pasto al pasar el mouse */
+      border-color: var(--color-warning);
+    }
+
+    /* Añadir sombra a las cartas */
+    .card {
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+      transition: box-shadow 0.3s ease-in-out; /* Transición suave */
+    }
+
+    .card:hover {
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada al pasar el mouse */
+    }
+  </style>
+</head>
+<body>
+
+<!-- Contenedor principal -->
+<section class="hero is-primary is-fullheight">
+  <div class="hero-body">
+    <div class="container">
+      <!-- Título más grande, en verde oscuro y rodeado -->
+      <h1 class="title">Mi Despensa</h1>
+
+      <!-- Botón centrado justo debajo del título -->
+      <div class="has-text-centered">
+        <a href="/foodhub/despensa/nuevo" class="button is-danger is-large">Añadir Producto Nuevo</a>
+      </div>
+
+      <div class="columns is-multiline">
+        <!-- Iterar sobre los productos y mostrar su información -->
+        <th:block th:each="producto : ${productos}">
+          <div class="column is-one-third">
+            <div class="card">
+              <div class="card-image">
+                <figure class="image is-4by3">
+                  <img th:src="${producto.url_image}" alt="Imagen del producto">
+                </figure>
+              </div>
+              <div class="card-content">
+
+                <div class="content">
+                  <p><strong>Nombre:</strong> <span th:text="${producto.nombre}"></span></p>
+                  <p><strong>Empresa:</strong> <span th:text="${producto.empNombre}"></span></p>
+                  <p><strong>Categoría:</strong> <span th:text="${producto.categoria.nombre}"></span></p>
+                  <p><strong>Fecha de caducidad:</strong> <span th:text="${producto.fechaCad}"></span></p>
+                  <p><strong>Peso:</strong> <span th:text="${producto.peso}"></span></p>
+                  <p><strong>Código de barras:</strong> <span th:text="${producto.codigoBarras}"></span></p>
+                  <p><strong>NutriScore:</strong>
+                    <span th:if="${producto.nutriScore == 'A'}">
+                        <img src="/images/nutriscore-A.png" alt="NutriScore A" style="width: 100px; height: auto; display: block; margin-top: 10px;" />
+                    </span>
+                                    <span th:if="${producto.nutriScore == 'B'}">
+                        <img src="/images/nutriscore-B.png" alt="NutriScore B" style="width: 100px; height: auto; display: block; margin-top: 10px;" />
+                    </span>
+                                    <span th:if="${producto.nutriScore == 'C'}">
+                        <img src="/images/nutriscore-C.png" alt="NutriScore C" style="width: 100px; height: auto; display: block; margin-top: 10px;" />
+                    </span>
+                                    <span th:if="${producto.nutriScore == 'D'}">
+                        <img src="/images/nutriscore-D.png" alt="NutriScore D" style="width: 100px; height: auto; display: block; margin-top: 10px;" />
+                    </span>
+                                    <span th:if="${producto.nutriScore == 'E'}">
+                        <img src="/images/nutriscore-E.png" alt="NutriScore E" style="width: 100px; height: auto; display: block; margin-top: 10px;" />
+                    </span>
+                                    <span th:if="${producto.nutriScore == 'UNKNOWN'}">
+                        <img src="/images/nutriscore-UKNOWN.png" alt="NutriScore UKNOWN" style="width: 100px; height: auto; display: block; margin-top: 10px;" />
+                    </span>
+                  </p>
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </th:block>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="has-text-centered mt-6">
+
+  <a href="/foodhub" class="button is-danger is-large">Volver</a>
+</div>
+</body>
+</html>

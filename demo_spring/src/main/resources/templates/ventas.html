@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ventas de la Empresa</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100">
+
+    <!-- Contenedor principal -->
+    <div class="container mx-auto px-4 py-6">
+
+        <!-- Título -->
+        <div class="text-center mb-6">
+            <h1 class="text-3xl font-semibold text-gray-800">LISTA DE VENTAS</h1> <!-- Título estático -->
+        </div>
+
+        <!-- Botón para registrar una nueva venta -->
+        <div class="flex justify-center mb-6">
+            <a href="/bienvenida/ventas/formulario"
+                class="px-6 py-3 bg-teal-600 text-white rounded-lg hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 transition-all">
+                Registrar Nueva Venta
+            </a>
+        </div>
+
+        <!-- Lista de ventas -->
+        <div th:if="${ventas != null and ventas.size() > 0}">
+            <ul class="space-y-4">
+                <!-- Iterar sobre todas las ventas -->
+                <li class="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200"
+                    th:each="venta : ${ventas}">
+                    <div class="flex justify-between">
+                        <div>
+                            <!-- ID de la Venta -->
+                            <h2 class="text-xl font-semibold text-gray-800" th:text="'Venta del Cliente '+ ${venta.cliente.nombre}+'(ID: '+${venta.cliente.idCli}+')'">
+                            </h2>
+                            <!-- Id del Artículo vendido -->
+                            <p class="text-gray-600"><small th:text="'ID: ' + ${venta.idVenta}"></small>
+                            </p>
+                            <!-- Artículo vendido -->
+                            <p class="text-gray-600"><small th:text="'Artículo: ' + ${venta.articulo.nombre}"></small>
+                            </p>
+                            <!-- Empleado que realizó la venta -->
+                            <p class="text-gray-600"><small th:text="'Empleado: ' + ${venta.empleado.nombre}"></small>
+                            </p>
+                            <!-- Cliente que realizó la venta -->
+                            <p class="text-gray-600"><small th:text="'Cliente: ' + ${venta.cliente.nombre}"></small>
+                            </p>
+                            <!-- Precio de la Venta -->
+                            <p class="text-gray-600"><small th:text="'Precio: ' + ${venta.precioVenta}+ '€'"></small></p>
+                            <!-- Fecha de la Venta -->
+                            <p class="text-gray-600"><small th:text="'Fecha: ' + ${venta.fechaVenta}"></small></p>
+                        </div>
+                        <div class="flex flex-col items-center space-y-2">
+                            <!-- Generar y mostrar el Código QR -->
+                            <img th:src="@{'/bienvenida/ventas/' + ${venta.idVenta} + '/qr'}" alt="Código QR"
+                                width="100">
+
+                            <!-- Botones de Acción: Eliminar -->
+                            <a th:href="@{articulos/eliminar/{id}(id=${venta.idVenta})}"
+                                class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 transition-all">
+                                Eliminar
+                            </a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div th:if="${ventas == null or ventas.size() == 0}">
+            <p class="text-center text-gray-600">No se encontraron ventas.</p>
+        </div>
+
+        <!-- Botón Volver -->
+        <div class="text-center mt-6">
+            <a href="/bienvenida"
+                class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
+                Volver a Bienvenida
+            </a>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buscar Recetas</title>
+  <!-- Importar Bulma desde un CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Personalización de colores usando la paleta proporcionada */
+    :root {
+      --color-primary: #d8fd94; /* Verde clarito */
+      --color-link: #fe9d97; /* Rosa claro */
+      --color-light: #fffec8; /* Amarillo claro */
+      --color-danger: #fe495f; /* Rojo */
+      --color-warning: #bded7e; /* Verde pasto */
+      --color-dark-green: #006400; /* Verde oscuro */
+    }
+
+    /* Sobrescribir colores de Bulma */
+    .hero.is-primary {
+      background-color: var(--color-primary); /* Verde clarito */
+    }
+
+    .title {
+      font-size: 4rem; /* Título más grande */
+      font-weight: bold;
+      text-align: center;
+      padding: 20px; /* Espacio alrededor del título */
+      border: 3px solid var(--color-dark-green); /* Borde alrededor del título */
+      border-radius: 10px; /* Bordes redondeados */
+      background-color: var(--color-light); /* Fondo amarillo claro */
+      color: var(--color-dark-green) !important; /* Asegura que el color negro se aplique */
+    }
+
+    .subtitle {
+      color: var(--color-link); /* Rosa claro */
+    }
+
+    /* Botón rojo con padding y espaciado */
+    .button.is-danger {
+      background-color: var(--color-danger); /* Rojo */
+      border-color: var(--color-danger);
+      padding: 15px 30px; /* Añadido padding */
+      margin-top: 20px; /* Espaciado arriba del botón */
+      margin-bottom: 20px; /* Espaciado abajo del botón */
+    }
+
+    .button.is-danger:hover {
+      background-color: var(--color-link); /* Rosa claro al pasar el mouse */
+      border-color: var(--color-link);
+    }
+
+    .button.is-info {
+      background-color: var(--color-primary); /* Verde clarito */
+      border-color: var(--color-primary);
+      color:var(--color-dark-green);
+    }
+
+    .button.is-info:hover {
+      background-color: var(--color-warning); /* Verde pasto al pasar el mouse */
+      border-color: var(--color-warning);
+    }
+
+    /* Añadir sombra a las cartas */
+    .card {
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+      transition: box-shadow 0.3s ease-in-out; /* Transición suave */
+    }
+
+    .card:hover {
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada al pasar el mouse */
+    }
+  </style>
+</head>
+
+<body class="bg-gray-100">
+
+<!-- Contenedor principal -->
+<section class="hero is-primary is-fullheight">
+  <div class="hero-body">
+    <div class="container">
+
+      <!-- Título más grande -->
+      <h1 class="title">Buscar Recetas por Ingrediente</h1>
+
+      <!-- Formulario de búsqueda -->
+      <div class="flex justify-center mb-6">
+        <form action="/foodhub/buscar-recetas" method="get" class="w-full max-w-lg">
+          <div class="flex items-center space-x-4">
+            <input type="text" name="ingrediente" placeholder="Ej. manzana" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500" required>
+            <button type="submit" class="px-6 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 transition-all">
+              Buscar
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Mostrar las recetas si existen -->
+      <div th:if="${recetas != null and recetas.size() > 0}">
+        <div class="columns is-multiline">
+          <!-- Iterar sobre las recetas -->
+          <div th:each="receta : ${recetas}" class="column is-one-third">
+            <div class="card">
+              <div class="card-image">
+                <figure class="image is-4by3">
+                  <img th:src="${receta.image}" alt="Imagen receta" class="w-full h-48 object-cover rounded-lg">
+                </figure>
+              </div>
+              <div class="card-content">
+                <h2 class="title is-4" th:text="${receta.label}"></h2>
+                <p class="text-gray-600" th:text="'Fuente: ' + ${receta.source}"></p>
+                <a th:href="${receta.url}" target="_blank" class="button is-info is-large">Ver receta</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div th:if="${recetas == null or recetas.size() == 0}">
+        <p class="text-center text-gray-600">No se encontraron recetas con ese ingrediente.</p>
+      </div>
+
+      <!-- Botón Volver -->
+      <div class="has-text-centered mt-6">
+        <a href="/foodhub" class="button is-danger is-large">Volver</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+</body>
+
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actualizar Departamento</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100">
+
+    <div class="container mx-auto px-6 py-8">
+
+        <h1 class="text-3xl font-semibold text-center mb-8">Actualizar Departamento</h1>
+
+        <!-- Formulario para actualizar un departamento -->
+        <form id="updateDepartmentForm" th:action="@{/bienvenida/departamentos/actualizar/{id}(id=${departamento.id})}"
+            method="POST" class="space-y-6">
+
+            <!-- Campo oculto para el ID del departamento -->
+            <input type="hidden" th:value="${departamento.id}" name="id">
+
+            <div>
+                <label for="nombre" class="block text-gray-700 font-semibold">Nombre del Departamento</label>
+                <input type="text" id="nombre" name="nombre" th:value="${departamento.nombre}" required
+                    class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+
+            <div>
+                <label for="localidad" class="block text-gray-700 font-semibold">Localidad</label>
+                <input type="text" id="localidad" name="localidad" th:value="${departamento.localidad}" required
+                    class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+
+            <!-- Sección para mostrar los empleados existentes -->
+            <h5 class="text-xl font-semibold mt-8">Empleados del Departamento</h5>
+
+            <!-- Mostrar empleados como una lista -->
+            <table class="min-w-full bg-white border border-gray-200 rounded-lg">
+                <thead class="bg-gray-100">
+                    <tr>
+                        <th class="p-3 text-left text-gray-700">Nombre</th>
+                        <th class="p-3 text-left text-gray-700">Sueldo</th>
+                        <th class="p-3 text-left text-gray-700">Fecha de Nacimiento</th>
+                        <th class="p-3 text-left text-gray-700">Dirección</th>
+                        <th class="p-3 text-left text-gray-700">Localidad</th>
+                        <th class="p-3 text-left text-gray-700">Código Postal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Recorremos los empleados existentes -->
+                    <tr th:each="empleado : ${departamento.empleados}">
+                        <td class="p-3" th:text="${empleado.nombre}">Nombre del empleado</td>
+                        <td class="p-3" th:text="${empleado.sueldo}">Sueldo del empleado</td>
+                        <td class="p-3" th:text="${empleado.fechanac}">Fecha de Nacimiento</td>
+                        <td class="p-3" th:text="${empleado.direccion.direccion}">Dirección</td>
+                        <td class="p-3" th:text="${empleado.direccion.localidad}">Localidad</td>
+                        <td class="p-3" th:text="${empleado.direccion.CP}">Código Postal</td>
+                    </tr>
+                </tbody>
+            </table>
+
+    </div>
+    <!-- Botón de Enviar -->
+    <div class="flex justify-center mt-6">
+        <button type="submit"
+            class="px-6 py-3 bg-teal-600 text-white rounded-lg hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 transition-all">
+            Actualizar Departamento
+        </button>
+    </div>
+
+    <!-- Botón Volver -->
+    <div class="text-center mt-6">
+        <a href="/bienvenida/departamentos"
+            class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
+            Volver a la Lista de Departamentos
+        </a>
+    </div>
+
+    </form>
+    </div>
+
+</body>
+
+</html>

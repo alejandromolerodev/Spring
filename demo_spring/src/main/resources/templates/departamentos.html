@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Departamentos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100">
+
+    <!-- Título -->
+    <div class="text-center mb-6">
+        <h1 class="text-3xl font-semibold text-gray-800">LISTA DE DEPARTAMENTOS</h1>
+    </div>
+
+    <div class="flex justify-center mb-6">
+        <a href="/bienvenida/departamentos/formulario"
+            class="px-6 py-3 bg-teal-600 text-white rounded-lg hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 transition-all">
+            Registrar Departamento
+        </a>
+    </div>
+
+    <!-- Contenedor de tarjetas -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
+        <!-- Iteración sobre la lista de departamentos -->
+        <div th:each="departamento : ${departamentos}"
+            class="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-all">
+            <h2 class="text-xl font-semibold text-gray-800 mb-2" th:text="${departamento.nombre}">
+            </h2>
+            <p class="text-gray-600 mb-2"><strong>ID:</strong> <span th:text="${departamento.id}"></span></p>
+            <p class="text-gray-600 mb-2"><strong>Localidad:</strong> <span th:text="${departamento.localidad}"></span>
+            </p>
+
+            <!-- Mostrar los empleados del departamento -->
+            <div class="mb-4">
+                <h3 class="text-lg font-semibold text-gray-700">Empleados:</h3>
+                <ul class="list-disc pl-5">
+                    <li th:each="empleado : ${departamento.empleados}" th:text="${empleado.nombre}"></li>
+                </ul>
+            </div>
+
+            <!-- Botones de acción -->
+            <div class="flex justify-between">
+
+                <a th:href="@{departamentos/actualizar/{id}(id=${departamento.id})}"
+                    class="px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-500 transition-all">
+                    Actualizar
+                </a>
+                <!-- Eliminar Departamento -->
+                <a th:href="@{'/bienvenida/departamentos/eliminar/' + ${departamento.id}}"
+                    class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 transition-all">
+                    Eliminar
+                </a>
+            </div>
+        </div>
+        <!-- Fin iteración -->
+    </div>
+
+    <!-- Botón Volver -->
+    <div class="text-center mt-6">
+        <a href="/bienvenida"
+            class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
+            Volver a Bienvenida
+        </a>
+    </div>
+
+</body>
+
+</html>

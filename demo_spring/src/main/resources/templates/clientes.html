@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clientes - Departamento: <span th:text="${departamento != null ? departamento.nombre : 'Desconocido'}"></span></title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100">
+
+    <!-- Contenedor principal -->
+    <div class="container mx-auto px-4 py-6">
+
+        <!-- Título -->
+        <div class="text-center mb-6">
+            <h1 class="text-3xl font-semibold text-gray-800">LISTA DE CLIENTES</h1> <!-- Título estático -->
+        </div>
+
+        <!-- Botón para crear un Cliente -->
+        <div class="flex justify-center mb-6">
+            <a href="/bienvenida/clientes/formulario" 
+               class="px-6 py-3 bg-teal-600 text-white rounded-lg hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 transition-all">
+                Registrar Cliente
+            </a>
+        </div>
+
+        <!-- Lista de Clientes -->
+        <div th:if="${clientes != null and clientes.size() > 0}">
+            <ul class="space-y-4">
+                <!-- Iterar sobre todos los clientes -->
+                <li class="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200" th:each="cliente : ${clientes}">
+                    <div class="flex justify-between">
+                        <div>
+                            <!-- Nombre del Cliente -->
+                            <h2 class="text-xl font-semibold text-gray-800" th:text="${cliente.nombre}"></h2>
+                             <!-- ID del Cliente -->
+                             <p class="text-gray-600"><small th:text="'ID: ' + ${cliente.idCli}"></small></p>
+                            <!-- Teléfono del Cliente -->
+                            <p class="text-gray-600"><small th:text="'Teléfono: ' + ${cliente.telefono}"></small></p>
+                            <!-- Ventas del Cliente -->
+                            <p class="text-gray-600"><small th:text="'Ventas: ' + ${cliente.ventas != null ? cliente.ventas.size() : 0}"></small></p>    
+                        </div>
+                        <div class="flex flex-col items-center space-y-2">
+                            <!-- Botones de Acción: Actualizar y Eliminar -->
+                            <a th:href="@{clientes/actualizar/{id}(id=${cliente.idCli})}" 
+                               class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">Actualizar</a>
+                            <a th:href="@{clientes/eliminar/{id}(id=${cliente.idCli})}" 
+                               class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 transition-all">
+                               Eliminar
+                            </a>
+                            
+                        </div>
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div th:if="${clientes == null or clientes.size() == 0}">
+            <p class="text-center text-gray-600">No se encontraron clientes.</p>
+        </div>
+
+        <!-- Botón Volver -->
+        <div class="text-center mt-6">
+            <a href="/bienvenida" 
+               class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
+                Volver a Bienvenida
+            </a>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

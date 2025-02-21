@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empleados - Departamento: <span th:text="${departamento != null ? departamento.nombre : 'Desconocido'}"></span></title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100">
+
+    <!-- Contenedor principal -->
+    <div class="container mx-auto px-4 py-6">
+
+        <!-- Título -->
+        <div class="text-center mb-6">
+            <h1 class="text-3xl font-semibold text-gray-800">LISTA DE EMPLEADOS</h1> <!-- Título estático -->
+        </div>
+
+        <!-- Botón para crear un Empleado -->
+        <div class="flex justify-center mb-6">
+            <a href="/bienvenida/empleados/formulario" 
+               class="px-6 py-3 bg-teal-600 text-white rounded-lg hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 transition-all">
+                Crear Empleado
+            </a>
+        </div>
+
+        <!-- Lista de empleados -->
+        <div th:if="${empleados != null and empleados.size() > 0}">
+            <ul class="space-y-4">
+                <!-- Iterar sobre todos los empleados -->
+                <li class="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200" th:each="empleado : ${empleados}">
+                    <div class="flex justify-between">
+                        <div>
+                            <!-- Nombre del Empleado -->
+                            <h2 class="text-xl font-semibold text-gray-800" th:text="${empleado.nombre}"></h2>
+                             <!-- ID del Empleado -->
+                             <p class="text-gray-600"><small th:text="'ID: ' + ${empleado.id}"></small></p>
+                            <!-- Sueldo del Empleado -->
+                            <p class="text-gray-600"><small th:text="'Sueldo: ' + ${empleado.sueldo} + '€'"></small></p>
+                            <!-- Fecha de Nacimiento -->
+                            <p class="text-gray-600"><small th:text="'Fecha de nacimiento: ' + ${empleado.fechanac}"></small></p>
+                            <!-- Departamento del Empleado -->
+                            <p class="text-gray-600"><small th:text="'Departamento: ' + (${empleado.departamento != null ? empleado.departamento.nombre : 'Desconocido'})"></small></p>
+                        </div>
+                        <div class="flex flex-col items-center space-y-2">
+                            <!-- Botones de Acción: Actualizar y Eliminar -->
+                            <a th:href="@{empleados/actualizar/{id}(id=${empleado.id})}" 
+                               class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">Actualizar</a>
+                            <a th:href="@{empleados/eliminar/{id}(id=${empleado.id})}" 
+                               class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 transition-all">
+                               Eliminar
+                            </a>
+                            
+                        </div>
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div th:if="${empleados == null or empleados.size() == 0}">
+            <p class="text-center text-gray-600">No se encontraron empleados en este departamento.</p>
+        </div>
+
+        <!-- Botón Volver -->
+        <div class="text-center mt-6">
+            <a href="/bienvenida" 
+               class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
+                Volver a Bienvenida
+            </a>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

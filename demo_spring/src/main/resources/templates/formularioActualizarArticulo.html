@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actualizar Artículo - <span th:text="${articulo.nombre}"></span></title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100">
+
+    <!-- Contenedor principal -->
+    <div class="container mx-auto px-4 py-6">
+
+        <!-- Título -->
+        <div class="text-center mb-6">
+            <h1 class="text-3xl font-semibold text-gray-800">ACTUALIZAR ARTÍCULO</h1> <!-- Título estático -->
+        </div>
+
+        <!-- Formulario de actualización -->
+        <div class="max-w-md mx-auto bg-white p-8 rounded-lg shadow-lg">
+            <form th:action="@{/bienvenida/articulos/actualizar/{id}(id=${articulo.idArt})}" method="POST">
+
+                <!-- Campo para el nombre del empleado -->
+                <div class="mb-4">
+                    <label for="nombre" class="block text-sm font-medium text-gray-700">Nombre</label>
+                    <input type="text" id="nombre" name="nombre" th:value="${articulo.nombre}"
+                           class="mt-2 px-4 py-2 border border-gray-300 rounded-lg w-full">
+                </div>
+
+                <!-- Campo para el precio del artículo -->
+                <div class="mb-4">
+                    <label for="precio" class="block text-sm font-medium text-gray-700">Precio</label>
+                    <input type="number" id="precio" name="precio" th:value="${articulo.precio}"
+                           class="mt-2 px-4 py-2 border border-gray-300 rounded-lg w-full" step="0.01">
+                </div>
+
+                 <!-- Campo para la descripción del articulo -->
+                 <div class="mb-4">
+                    <label for="descripcion" class="block text-sm font-medium text-gray-700">Descripción</label>
+                    <textarea id="descripcion" name="descripcion" th:text="${articulo.descripcion}"
+                        class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                </div>
+               
+                            
+        
+                <!-- Botón de Enviar -->
+                <div class="flex justify-center mt-6">
+                    <button type="submit" 
+                            class="px-6 py-3 bg-teal-600 text-white rounded-lg hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 transition-all">
+                        Actualizar Artículo
+                    </button>
+                </div>
+
+            </form>
+        </div>
+
+        <!-- Botón Volver -->
+        <div class="text-center mt-6">
+            <a href="/bienvenida/articulos" 
+               class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
+                Volver a la Lista de Artículos
+            </a>
+        </div>
+
+    </div>
+
+</body>
+
+</html>
