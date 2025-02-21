@@ -1,9 +1,9 @@
 package org.molerodev.foodhubmvc.controller;
 
+import org.molerodev.foodhubmvc.model.Hit;
 import org.molerodev.foodhubmvc.service.EdamamAPIClient;
 import org.molerodev.foodhubmvc.model.RecetasResponse;
-import org.molerodev.foodhubmvc.model.Hit;
-import org.molerodev.foodhubmvc.service.Recipe;
+import org.molerodev.foodhubmvc.model.Recipe;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

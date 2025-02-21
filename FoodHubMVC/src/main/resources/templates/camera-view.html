@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Escáner de Código de Barras</title>
+  <link href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --color-primary: #d8fd94;    /* Verde clarito */
+      --color-link: #fe9d97;       /* Rosa claro */
+      --color-light: #fffec8;      /* Amarillo claro */
+      --color-danger: #fe495f;     /* Rojo */
+      --color-warning: #bded7e;    /* Verde pasto */
+      --color-dark-green: #006400; /* Verde oscuro */
+    }
+
+    .hero.is-primary {
+      background-color: var(--color-primary); /* Verde clarito */
+    }
+
+    .title {
+      font-size: 2rem;
+      font-weight: bold;
+      text-align: center;
+      padding: 20px;
+      border: 3px solid var(--color-dark-green);
+      border-radius: 10px;
+      background-color: var(--color-light);
+      color: var(--color-dark-green) !important;
+    }
+
+    .button.is-danger {
+      background-color: var(--color-danger);
+      border-color: var(--color-danger);
+      padding: 15px 30px;
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+
+    .button.is-danger:hover {
+      background-color: var(--color-link);
+      border-color: var(--color-link);
+    }
+
+    #barcode-result {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--color-dark-green);
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    #camera-feed {
+      width: 640px;
+      height: 480px;
+      border: 2px solid var(--color-dark-green);
+      border-radius: 10px;
+    }
+
+    .input-field {
+      margin-top: 20px;
+      width: 50%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
+</head>
+<body>
+<section class="hero is-primary is-fullheight">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">Escáner de Código de Barras</h1>
+
+      <!-- Mostrar la transmisión de la cámara -->
+      <div class="has-text-centered">
+        <img id="camera-feed" src="" alt="Cámara en tiempo real">
+      </div>
+
+      <!-- Botón para escanear el código de barras -->
+      <div class="has-text-centered">
+        <button id="scan-button" class="button is-danger is-large">Escanear Código de Barras</button>
+      </div>
+
+      <!-- Mostrar el resultado del escaneo -->
+      <div class="has-text-centered mt-4">
+        <p id="scan-result">Código de barras escaneado: <span id="barcode-result"></span></p>
+      </div>
+
+      <!-- Botón para volver a la despensa -->
+      <div class="has-text-centered mt-6">
+        <a href="/foodhub/despensa" class="button is-danger is-large">Volver a la Despensa</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Función para actualizar la imagen de la cámara cada 100 ms
+  function updateCameraFrame() {
+    fetch('/foodhub/camera/frame')
+            .then(response => response.text())
+            .then(data => {
+              if (data) {
+                document.getElementById('camera-feed').src = 'data:image/png;base64,' + data;
+              }
+            })
+            .catch(error => console.error('Error al obtener el frame:', error));
+  }
+
+  // Actualizar la imagen cada 100 ms
+  setInterval(updateCameraFrame, 100);
+
+  // Función para escanear el código de barras
+  document.getElementById('scan-button').addEventListener('click', () => {
+    fetch('/foodhub/despensa/scan') // Llamar al endpoint de escaneo
+            .then(response => response.text())
+            .then(data => {
+              // Mostrar el código de barras escaneado en la página
+              document.getElementById('barcode-result').textContent = data;
+            })
+            .catch(error => console.error('Error al escanear:', error));
+  });
+</script>
+</body>
+</html>

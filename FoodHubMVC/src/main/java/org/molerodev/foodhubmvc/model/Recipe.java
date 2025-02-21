@@ -1,4 +1,4 @@
-package org.molerodev.foodhubmvc.service;
+package org.molerodev.foodhubmvc.model;
 
 /*
  * Author: Alex_Molerodev
