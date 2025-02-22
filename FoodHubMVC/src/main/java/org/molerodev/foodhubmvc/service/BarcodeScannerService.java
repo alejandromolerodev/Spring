@@ -9,6 +9,8 @@ import org.bytedeco.javacv.Frame;
 import org.bytedeco.javacv.FrameGrabber;
 import org.bytedeco.javacv.Java2DFrameConverter;
 import org.bytedeco.javacv.OpenCVFrameGrabber;
+import org.molerodev.foodhubmvc.model.ProductoDTO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.awt.image.BufferedImage;
@@ -16,6 +18,14 @@ import java.awt.image.BufferedImage;
 @Service
 public class BarcodeScannerService {
 
+    @Autowired
+    private OpenFoodFactsService openFoodFactsService;
+
+    /**
+     * Escanea un código de barras utilizando la cámara.
+     *
+     * @return El código de barras escaneado como String, o un mensaje de error si no se detecta.
+     */
     public String scanBarcode() {
         try (FrameGrabber grabber = new OpenCVFrameGrabber(0)) { // 0 es la cámara predeterminada
             grabber.start(); // Inicia la cámara
@@ -43,7 +53,7 @@ public class BarcodeScannerService {
                     Result result = reader.decode(binaryBitmap);
                     String barcodeText = result.getText();
 
-                    // Imprime el resultado en la consola de IntelliJ
+                    // Imprime el resultado en la consola
                     System.out.println("Código de barras escaneado: " + barcodeText);
 
                     return barcodeText; // Devuelve el contenido del código de barras
@@ -61,5 +71,23 @@ public class BarcodeScannerService {
             System.out.println("Error al acceder a la cámara: " + e.getMessage());
             throw new RuntimeException("Error al acceder a la cámara", e);
         }
+    }
+
+    /**
+     * Obtiene los detalles de un producto a partir del código de barras escaneado.
+     *
+     * @return Un objeto ProductoDTO con los detalles del producto, o null si no se encuentra.
+     */
+    public ProductoDTO obtenerDatos(String barcode) {
+        barcode = scanBarcode(); // Escanea el código de barras
+        if (barcode != null && !barcode.startsWith("No se detectó")) {
+            // Obtener el producto desde Open Food Facts
+            ProductoDTO productoDTO = openFoodFactsService.getProductByBarcode(barcode);
+
+            if (productoDTO != null) {
+                return productoDTO; // Retorna el producto si se encontró
+            }
+        }
+        return null; // Retorna null si no se detecta un código de barras válido o no se encuentra el producto
     }
 }

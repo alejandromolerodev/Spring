@@ -102,7 +102,10 @@
                 <div class="content">
                   <p><strong>Nombre:</strong> <span th:text="${producto.nombre}"></span></p>
                   <p><strong>Empresa:</strong> <span th:text="${producto.empNombre}"></span></p>
-                  <p><strong>Categoría:</strong> <span th:text="${producto.categoria.nombre}"></span></p>
+                  <p><strong>Categoría:</strong>
+                    <span th:if="${producto.categoria != null}" th:text="${producto.categoria.nombre}"></span>
+                    <span th:unless="${producto.categoria != null}">No disponible</span>
+                  </p>
                   <p><strong>Fecha de caducidad:</strong> <span th:text="${producto.fechaCad}"></span></p>
                   <p><strong>Peso:</strong> <span th:text="${producto.peso}"></span></p>
                   <p><strong>Código de barras:</strong> <span th:text="${producto.codigoBarras}"></span></p>

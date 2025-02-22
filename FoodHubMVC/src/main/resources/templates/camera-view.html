@@ -6,63 +6,14 @@
   <title>Escáner de Código de Barras</title>
   <link href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" rel="stylesheet">
   <style>
-    :root {
-      --color-primary: #d8fd94;    /* Verde clarito */
-      --color-link: #fe9d97;       /* Rosa claro */
-      --color-light: #fffec8;      /* Amarillo claro */
-      --color-danger: #fe495f;     /* Rojo */
-      --color-warning: #bded7e;    /* Verde pasto */
-      --color-dark-green: #006400; /* Verde oscuro */
-    }
-
-    .hero.is-primary {
-      background-color: var(--color-primary); /* Verde clarito */
-    }
-
-    .title {
-      font-size: 2rem;
-      font-weight: bold;
-      text-align: center;
-      padding: 20px;
-      border: 3px solid var(--color-dark-green);
-      border-radius: 10px;
-      background-color: var(--color-light);
-      color: var(--color-dark-green) !important;
-    }
-
-    .button.is-danger {
-      background-color: var(--color-danger);
-      border-color: var(--color-danger);
-      padding: 15px 30px;
+    /* Estilos adicionales si los necesitas */
+    #product-details {
       margin-top: 20px;
-      margin-bottom: 20px;
     }
-
-    .button.is-danger:hover {
-      background-color: var(--color-link);
-      border-color: var(--color-link);
-    }
-
-    #barcode-result {
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: var(--color-dark-green);
-      margin-top: 20px;
-      text-align: center;
-    }
-
-    #camera-feed {
-      width: 640px;
-      height: 480px;
-      border: 2px solid var(--color-dark-green);
-      border-radius: 10px;
-    }
-
-    .input-field {
-      margin-top: 20px;
-      width: 50%;
-      margin-left: auto;
-      margin-right: auto;
+    #product-image {
+      max-width: 200px;
+      height: auto;
+      margin-top: 10px;
     }
   </style>
 </head>
@@ -74,7 +25,7 @@
 
       <!-- Mostrar la transmisión de la cámara -->
       <div class="has-text-centered">
-        <img id="camera-feed" src="" alt="Cámara en tiempo real">
+        <img id="camera-feed" src="" alt="Cámara en tiempo real" style="max-width: 100%; height: auto;">
       </div>
 
       <!-- Botón para escanear el código de barras -->
@@ -85,6 +36,17 @@
       <!-- Mostrar el resultado del escaneo -->
       <div class="has-text-centered mt-4">
         <p id="scan-result">Código de barras escaneado: <span id="barcode-result"></span></p>
+      </div>
+
+      <!-- Mostrar los detalles del producto -->
+      <div id="product-details" class="has-text-centered mt-6" style="display: none;">
+        <h2 class="subtitle">Detalles del Producto</h2>
+        <p><strong>Nombre:</strong> <span id="product-name">No disponible</span></p>
+        <p><strong>Marca:</strong> <span id="product-brand">No disponible</span></p>
+        <p><strong>Imagen:</strong> <img id="product-image" src="" alt="Imagen del producto"></p>
+        <p><strong>Peso:</strong> <span id="product-quantity">No disponible</span></p>
+        <p><strong>Categoría:</strong> <span id="product-category">No disponible</span></p>
+        <p><strong>NutriScore:</strong> <span id="product-nutriscore">No disponible</span></p>
       </div>
 
       <!-- Botón para volver a la despensa -->
@@ -111,15 +73,50 @@
   // Actualizar la imagen cada 100 ms
   setInterval(updateCameraFrame, 100);
 
-  // Función para escanear el código de barras
+  // Función para escanear el código de barras y obtener los detalles del producto
   document.getElementById('scan-button').addEventListener('click', () => {
     fetch('/foodhub/despensa/scan') // Llamar al endpoint de escaneo
             .then(response => response.text())
-            .then(data => {
+            .then(barcode => {
               // Mostrar el código de barras escaneado en la página
-              document.getElementById('barcode-result').textContent = data;
+              document.getElementById('barcode-result').textContent = barcode;
+
+              // Llamar al endpoint para obtener los detalles del producto
+              fetch(`/foodhub/despensa/producto/${barcode}`)
+                      .then(response => {
+                        if (!response.ok) {
+                          throw new Error('Producto no encontrado');
+                        }
+                        return response.json();
+                      })
+                      .then(product => {
+                        // Mostrar los detalles del producto
+                        document.getElementById('product-name').textContent = product.nombre || 'No disponible';
+                        document.getElementById('product-brand').textContent = product.empNombre || 'No disponible';
+                        document.getElementById('product-image').src = product.url_image || '';
+                        document.getElementById('product-quantity').textContent = product.peso || 'No disponible';
+                        document.getElementById('product-category').textContent = product.categoria?.nombre || 'No disponible';
+                        document.getElementById('product-nutriscore').textContent = product.nutriScore || 'No disponible';
+
+                        // Mostrar la sección de detalles del producto
+                        document.getElementById('product-details').style.display = 'block';
+
+                        // Añadir el producto a la despensa
+                        return fetch('/foodhub/despensa/producto/nuevo', {
+                          method: 'POST',
+                          headers: {
+                            'Content-Type': 'application/json',
+                          },
+                          body: JSON.stringify(product),
+                        });
+                      })
+                      alert('Producto añadido a la despensa correctamente');
+
             })
-            .catch(error => console.error('Error al escanear:', error));
+            .catch(error => {
+              console.error('Error al escanear:', error);
+              alert('Error al escanear el código de barras. Intenta de nuevo.');
+            });
   });
 </script>
 </body>

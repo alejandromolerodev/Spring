@@ -72,6 +72,12 @@
             <artifactId>javacv-platform</artifactId>
             <version>1.5.8</version>
         </dependency>
+        <dependency>
+            <groupId>org.modelmapper</groupId>
+            <artifactId>modelmapper</artifactId>
+            <version>3.1.0</version>
+        </dependency>
+
     </dependencies>
 
     <build>

@@ -35,7 +35,7 @@ public class ApiRestSingleton {
     }
 
     // Método para realizar el POST a la API
-    public String postDataToApi(String apiUrl, String endpoint, Object requestBody) {
+    public String postDataToApi(String apiUrl, String endpoint, ProductoDTO requestBody) {
         String url = UriComponentsBuilder.fromHttpUrl(apiUrl)
                 .path(endpoint)
                 .toUriString();
