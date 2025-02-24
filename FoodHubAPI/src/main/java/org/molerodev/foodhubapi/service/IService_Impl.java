@@ -1,8 +1,11 @@
 package org.molerodev.foodhubapi.service;
 
 import org.modelmapper.ModelMapper;
+import org.molerodev.foodhubapi.dto.ListaCompraDTO;
 import org.molerodev.foodhubapi.dto.ProductoDTO;
+import org.molerodev.foodhubapi.entity.ListaCompra;
 import org.molerodev.foodhubapi.entity.Producto;
+import org.molerodev.foodhubapi.repository.ListaCompraRepository;
 import org.molerodev.foodhubapi.repository.ProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +24,10 @@ public class IService_Impl implements IService<Producto, ProductoDTO> {
 
     @Autowired
     private ProductoRepository productoRepository;
+
+
+    @Autowired
+    private ListaCompraRepository listaCompraRepository;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -49,6 +56,7 @@ public class IService_Impl implements IService<Producto, ProductoDTO> {
 
         return productoRepository.save(producto);
     }
+
 
     public void delete(Long id){
         productoRepository.deleteById(id);
