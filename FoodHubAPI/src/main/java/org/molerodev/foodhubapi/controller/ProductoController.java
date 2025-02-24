@@ -23,24 +23,24 @@ import java.util.List;
 public class ProductoController {
 
     @Autowired
-    private IService<Producto, ProductoDTO> iService;
+    private IService<Producto, ProductoDTO> iPService;
 
 
     @GetMapping
     public ResponseEntity<List<ProductoDTO>> getAll() {
-        List<ProductoDTO> productos = iService.getAll();
+        List<ProductoDTO> productos = iPService.getAll();
         return new ResponseEntity<>(productos, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ProductoDTO> getProducto(@PathVariable Long id) {
-        ProductoDTO producto = iService.getProducto(id);
+        ProductoDTO producto = iPService.get(id);
         return new ResponseEntity<>(producto, HttpStatus.OK);
     }
 
     @GetMapping("/{id}/imagen")
     public ResponseEntity<String>getImagen(@PathVariable Long id){
-        ProductoDTO producto = iService.getProducto(id);
+        ProductoDTO producto = iPService.get(id);
 
         return new ResponseEntity<>(producto.getUrl_image(),HttpStatus.OK);
     }
@@ -49,19 +49,19 @@ public class ProductoController {
 
     @PostMapping
     public ResponseEntity<Producto> save(@RequestBody Producto producto) {
-        Producto savedProducto = iService.save(producto);
+        Producto savedProducto = iPService.save(producto);
         return new ResponseEntity<>(savedProducto, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Producto> update(@PathVariable Long id, @RequestBody Producto producto) {
-        Producto updatedProducto = iService.updateProducto(id, producto);
+        Producto updatedProducto = iPService.updateProducto(id, producto);
         return new ResponseEntity<>(updatedProducto, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
-        iService.delete(id);
+        iPService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 

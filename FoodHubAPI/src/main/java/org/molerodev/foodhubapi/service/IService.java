@@ -13,7 +13,7 @@ import java.util.List;
 public interface IService<T,K> {
 
     List<K> getAll();
-    K getProducto(Long id);
+    K get(Long id);
 
     T save(T t);
 
