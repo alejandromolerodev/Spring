@@ -48,13 +48,13 @@ public class ProductoController {
 
 
     @PostMapping
-    public ResponseEntity<Producto> save(@RequestBody Producto producto) {
-        Producto savedProducto = iPService.save(producto);
+    public ResponseEntity<Producto> save(@RequestBody ProductoDTO productoDTO) {
+        Producto savedProducto = iPService.save(productoDTO);
         return new ResponseEntity<>(savedProducto, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Producto> update(@PathVariable Long id, @RequestBody Producto producto) {
+    public ResponseEntity<Producto> update(@PathVariable Long id, @RequestBody ProductoDTO producto) {
         Producto updatedProducto = iPService.updateProducto(id, producto);
         return new ResponseEntity<>(updatedProducto, HttpStatus.OK);
     }

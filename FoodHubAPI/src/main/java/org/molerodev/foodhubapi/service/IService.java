@@ -15,11 +15,16 @@ public interface IService<T,K> {
     List<K> getAll();
     K get(Long id);
 
-    T save(T t);
+    T save(K k);
 
-    Producto updateProducto(Long id, Producto productoDetails);
+    T updateProducto(Long id, K tDetails);
 
     void delete(Long id);
+
+
+    T convertToEntity(K k);
+
+    K convertToDTO(T t);
 
 
 }

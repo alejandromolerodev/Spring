@@ -42,7 +42,7 @@ public class ProductoController {
         String endpoint = ""; // Endpoint para obtener todos los productos (getAll)
 
         // Hacer la llamada a la API
-        List<ProductoDTO> productos = apiRestSingleton.getDataFromApi(apiUrl, endpoint);
+        List<ProductoDTO> productos = apiRestSingleton.getProductoFromApi(apiUrl, endpoint);
 
         // Agregar los productos al modelo
         model.addAttribute("productos", productos);
@@ -52,7 +52,7 @@ public class ProductoController {
     }
 
     @GetMapping("/despensa/nuevo")
-    public String nuevoProducto(Model model) {
+    public String nuevoProducto() {
         // Redirige a la vista de la cámara
         return "camera-view";
     }
@@ -72,7 +72,7 @@ public class ProductoController {
         // Obtener el producto desde Open Food Facts
         ProductoDTO producto = new ProductoDTO();
         modelMapper.map(openFoodFactsService.getProductByBarcode(barcode),producto);
-        apiRestSingleton.postDataToApi(apiUrl,endpoint,producto);
+        apiRestSingleton.postProductoToApi(apiUrl,endpoint,producto);
 
         if (producto != null) {
             System.out.println(producto.getNombre()+" - "+ producto.getNutriScore() +" - "+ producto.getCategoria());

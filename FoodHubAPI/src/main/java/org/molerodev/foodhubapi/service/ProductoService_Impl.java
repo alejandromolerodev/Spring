@@ -38,11 +38,11 @@ public class ProductoService_Impl implements IService<Producto, ProductoDTO> {
                 .orElseThrow(() -> new RuntimeException("No se ha podido encontrar el producto")));
     }
 
-    public Producto save(Producto producto) {
-        return productoRepository.save(producto);
+    public Producto save(ProductoDTO productoDTO) {
+        return productoRepository.save(convertToEntity(productoDTO));
     }
 
-    public Producto updateProducto(Long id, Producto productoDetails) {
+    public Producto updateProducto(Long id, ProductoDTO productoDetails) {
         Producto producto = productoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("No se ha encontrado el producto"));
 
@@ -57,10 +57,12 @@ public class ProductoService_Impl implements IService<Producto, ProductoDTO> {
     }
 
 
+    @Override
     public Producto convertToEntity(ProductoDTO productoDTO) {
         return modelMapper.map(productoDTO, Producto.class);
     }
 
+    @Override
     public ProductoDTO convertToDTO(Producto producto) {
         return modelMapper.map(producto, ProductoDTO.class);
     }

@@ -1,5 +1,6 @@
 package org.molerodev.foodhubmvc.service;
 
+import org.molerodev.foodhubmvc.model.ListaCompraDTO;
 import org.molerodev.foodhubmvc.model.ProductoDTO;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
@@ -26,7 +27,7 @@ public class ApiRestSingleton {
     }
 
     // Método para realizar la consulta GET a la API y obtener los productos
-    public List<ProductoDTO> getDataFromApi(String apiUrl, String endpoint) {
+    public List<ProductoDTO> getProductoFromApi(String apiUrl, String endpoint) {
         String url = UriComponentsBuilder.fromHttpUrl(apiUrl)
                 .path(endpoint)
                 .toUriString();
@@ -35,7 +36,23 @@ public class ApiRestSingleton {
     }
 
     // Método para realizar el POST a la API
-    public String postDataToApi(String apiUrl, String endpoint, ProductoDTO requestBody) {
+    public String postProductoToApi(String apiUrl, String endpoint, ProductoDTO requestBody) {
+        String url = UriComponentsBuilder.fromHttpUrl(apiUrl)
+                .path(endpoint)
+                .toUriString();
+        return restTemplate.postForObject(url, requestBody, String.class);
+    }
+
+    public List<ListaCompraDTO> getLCFromApi(String apiUrl, String endpoint){
+        String url = UriComponentsBuilder.fromHttpUrl(apiUrl)
+                .path(endpoint)
+                .toUriString();
+
+        return restTemplate.getForObject(url,List.class);
+
+    }
+
+    public String postLCToApi(String apiUrl, String endpoint, ListaCompraDTO requestBody){
         String url = UriComponentsBuilder.fromHttpUrl(apiUrl)
                 .path(endpoint)
                 .toUriString();
