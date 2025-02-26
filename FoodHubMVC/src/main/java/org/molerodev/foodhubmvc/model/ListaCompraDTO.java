@@ -20,8 +20,10 @@ public class ListaCompraDTO {
 
     private String titulo;
 
-    @DateTimeFormat(pattern = "yyyy-mm-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate fecha;
 
-    private List<String> items;
+    private List<ItemDTO> items;
+
+    private Estado comprado;
 }

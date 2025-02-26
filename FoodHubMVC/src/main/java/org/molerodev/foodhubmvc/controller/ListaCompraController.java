@@ -32,7 +32,7 @@ public class ListaCompraController {
         String endpoint = ""; // Endpoint para obtener todos los productos (getAll)
 
         // Hacer la llamada a la API
-        List<ListaCompraDTO> listas = apiRestSingleton.getDataFromApi(apiUrl, endpoint);
+        List<ListaCompraDTO> listas = apiRestSingleton.getLCFromApi(apiUrl, endpoint);
 
         // Agregar los productos al modelo
         model.addAttribute("lista", listas);
@@ -47,7 +47,7 @@ public class ListaCompraController {
         String apiUrl = "http://localhost:8080/foodhub/listacompra"; // Ajusta según sea necesario
         String endpoint = "";
 
-        apiRestSingleton.postDataToApi(apiUrl, endpoint, listaCompraDTO, ListaCompraDTO.class);
+        apiRestSingleton.postLCToApi(apiUrl, endpoint, listaCompraDTO);
 
         return "redirect:/foodhub/listacompra";
     }

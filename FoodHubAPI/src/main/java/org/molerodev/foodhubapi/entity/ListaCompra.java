@@ -31,6 +31,9 @@ public class ListaCompra {
     private LocalDate fecha;
 
     @ElementCollection
-    private List<String> items;
+    private List<Item> items;
+
+
+
 
 }
