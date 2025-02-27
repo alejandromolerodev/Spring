@@ -1,20 +1,11 @@
 package org.molerodev.foodhubmvc.controller;
 
-/*
- * Author: Alex_Molerodev
- * Email: alejandromolero.developer@gmail.com
- * Create Time: 24/2/25
- */
-
 import org.molerodev.foodhubmvc.model.ListaCompraDTO;
 import org.molerodev.foodhubmvc.service.ApiRestSingleton;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -41,14 +32,51 @@ public class ListaCompraController {
         return "listacompra"; // Asegúrate de que esta vista exista
     }
 
+    @GetMapping("/listacompra/nueva")
+    public String formulariolista() {
+        return "listacompranueva";
+    }
 
-    @PostMapping("/listacompra")
+    @PostMapping("/listacompra/nueva")
     public String agregarLista(@ModelAttribute ListaCompraDTO listaCompraDTO) {
         String apiUrl = "http://localhost:8080/foodhub/listacompra"; // Ajusta según sea necesario
         String endpoint = "";
 
         apiRestSingleton.postLCToApi(apiUrl, endpoint, listaCompraDTO);
 
+        return "redirect:/foodhub/listacompra";
+    }
+
+    @GetMapping("/listacompra/actualizar/{id}")
+    public String mostrarFormularioActualizar(@PathVariable Long id, Model model) {
+        // Llamar al servicio para obtener la lista de compra por id
+        String apiUrl = "http://localhost:8080/foodhub/listacompra";
+        String endpoint = "/" + id;
+        ListaCompraDTO listaCompraDTO = apiRestSingleton.getLCforIDFromApi(apiUrl, endpoint, id);
+
+        // Agregar la lista al modelo
+        model.addAttribute("lista", listaCompraDTO);
+
+        // Retornar la vista del formulario de actualización
+        return "formularioActualizarlista";
+    }
+
+
+
+
+    @PostMapping("/listacompra/actualizar/{id}")
+    public String actualizarLista(
+            @PathVariable Long id,
+            @ModelAttribute ListaCompraDTO listaCompraDTO) {
+
+        // Aquí, `listaCompraDTO` tendrá los cambios del estado de los productos
+        String apiUrl = "http://localhost:8080/foodhub/listacompra";
+        String endpoint = "/" + id; // Asegúrate de que el endpoint coincida con el API
+
+        // Realizamos la actualización mediante la API
+        apiRestSingleton.actualizarLC(apiUrl, endpoint, listaCompraDTO);
+
+        // Redirigir a la página de listas de compra después de la actualización
         return "redirect:/foodhub/listacompra";
     }
 

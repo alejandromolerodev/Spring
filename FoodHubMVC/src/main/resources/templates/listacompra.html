@@ -1,59 +1,67 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Listas de Compra</title>
-  <!-- Incluir Bulma desde el CDN -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+  <style>
+    .disabled-button {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+  </style>
 </head>
 <body>
 
 <div class="container">
   <h1 class="title is-2">Listas de Compra</h1>
 
-  <!-- Contenedor para las cartas -->
-  <div class="columns is-multiline">
-    <!-- Iteramos sobre todas las listas de compra -->
-    <div class="column is-one-quarter" th:each="listaCompra : ${lista}">
-      <!-- Cada lista de compra será una carta -->
-      <div class="card">
-        <div class="card-content">
-          <h2 class="title is-4" th:text="${listaCompra.titulo}">Título de la Lista</h2>
-          <p class="subtitle is-6" th:text="${listaCompra.fecha}">Fecha de la lista</p>
-
-          <!-- Información sobre los ítems -->
-          <div class="content">
-            <h5 class="title is-5">Items:</h5>
-            <ul>
-              <!-- Iteramos sobre los items de la lista -->
-              <li th:each="item : ${listaCompra.items}">
-                <!-- Checkbox que estará marcado si el estado del ítem es 'COMPRADO', pero no es editable -->
-                <label>
-                  <input type="checkbox"
-                         th:checked="${item.estado == 'COMPRADO'}"
-                         th:name="'item_' + ${item.nombre}"
-                         disabled /> <!-- Deshabilitado para evitar la modificación -->
-                  <span th:text="${item.nombre}"></span>
-                </label>
-                <span> - </span>
-                <span th:text="${item.estado}"></span>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <footer class="card-footer">
-          <!-- Enlace para eliminar la lista de compra -->
-          <a href="#" class="card-footer-item button is-danger is-small">Eliminar</a>
-        </footer>
-      </div>
+  <div class="field">
+    <div class="control">
+      <a href="/foodhub/listacompra/nueva" class="button is-primary">
+        Añadir nueva lista
+      </a>
     </div>
   </div>
 
-  <!-- Agregar un nuevo botón para crear una lista de compra -->
-  <a href="#" class="button is-primary">Nueva Lista de Compra</a>
-
+  <div class="columns is-multiline">
+    <div class="column is-one-third" th:each="lista : ${lista}">
+      <div class="card">
+        <header class="card-header">
+          <p class="card-header-title" th:text="${lista.titulo}">Título</p>
+        </header>
+        <div class="card-content">
+          <p th:text="${lista.fecha}">Fecha</p>
+          <ul>
+            <li th:each="item, stat : ${lista.items}">
+              <label class="checkbox">
+                <input type="checkbox"
+                       th:checked="${item['estado'] == 'COMPRADO'}"
+                       th:disabled="${lista.fecha == null or !T(java.time.LocalDate).parse(lista.fecha).isEqual(T(java.time.LocalDate).now())}">
+                <span th:text="${item['nombre']}">Producto</span>
+              </label>
+            </li>
+          </ul>
+          <div class="field mt-4">
+            <div class="control">
+              <!-- Botón condicional -->
+              <a th:if="${lista.fecha != null and T(java.time.LocalDate).parse(lista.fecha).isEqual(T(java.time.LocalDate).now())}"
+                 th:href="@{/foodhub/listacompra/actualizar/{id}(id=${lista.id})}"
+                 class="button is-info is-fullwidth">
+                Actualizar Lista
+              </a>
+              <button th:unless="${lista.fecha != null and T(java.time.LocalDate).parse(lista.fecha).isEqual(T(java.time.LocalDate).now())}"
+                      class="button is-info is-fullwidth disabled-button"
+                      disabled>
+                Actualizar Lista
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 </body>

@@ -58,4 +58,20 @@ public class ApiRestSingleton {
                 .toUriString();
         return restTemplate.postForObject(url, requestBody, String.class);
     }
+
+
+    public void actualizarLC(String apiUrl, String endpoint, ListaCompraDTO requestBody) {
+        String url = UriComponentsBuilder.fromHttpUrl(apiUrl)
+                .path(endpoint)
+                .toUriString();
+        restTemplate.put(url, requestBody);
+    }
+
+    public ListaCompraDTO getLCforIDFromApi(String apiUrl, String endpoint, Long id) {
+        String url = UriComponentsBuilder.fromHttpUrl(apiUrl)
+                .path(endpoint)
+                .buildAndExpand(id)
+                .toUriString();
+        return restTemplate.getForObject(url, ListaCompraDTO.class);
+    }
 }

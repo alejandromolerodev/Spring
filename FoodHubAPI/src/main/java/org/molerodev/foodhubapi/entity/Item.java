@@ -18,6 +18,8 @@ import org.molerodev.foodhubapi.model.Estado;
 @Embeddable
 public class Item {
 
+    private Long id;
+
     private String nombre;
 
     @Enumerated(EnumType.STRING)

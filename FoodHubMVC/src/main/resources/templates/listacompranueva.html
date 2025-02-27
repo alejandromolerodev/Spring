@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nueva Lista de Compra</title>
+  <!-- Incluir Bulma desde el CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+</head>
+<body>
+
+<div class="container">
+  <h1 class="title is-2">Crear Nueva Lista de Compra</h1>
+
+  <form th:action="@{/foodhub/listacompra/nueva}" method="POST">
+    <!-- Campo para el título -->
+    <div class="field">
+      <label class="label">Título de la lista</label>
+      <div class="control">
+        <input class="input" type="text" name="titulo" placeholder="Ej: Compra semanal" required>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Fecha</label>
+      <div class="control">
+        <input class="input" type="date" name="fecha" required>
+      </div>
+    </div>
+
+    <!-- Lista de productos -->
+    <div class="field">
+      <label class="label">Productos</label>
+      <div id="productos-container">
+        <!-- Producto base -->
+        <div class="field has-addons producto">
+          <div class="control is-expanded">
+            <input class="input" type="text" name="items[0].nombre" placeholder="Nombre del producto" required>
+          </div>
+          <div class="control">
+            <button type="button" class="button is-danger quitar-producto" disabled>
+              ✕
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Botón para agregar más productos -->
+      <div class="field">
+        <div class="control">
+          <button type="button" id="agregar-producto" class="button is-info is-small">
+            Añadir otro producto
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Botón de enviar -->
+    <div class="field">
+      <div class="control">
+        <button type="submit" class="button is-primary">Guardar Lista</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const container = document.getElementById('productos-container');
+    const addButton = document.getElementById('agregar-producto');
+    let productIndex = 1;
+
+    addButton.addEventListener('click', () => {
+      const newProduct = document.createElement('div');
+      newProduct.className = 'field has-addons producto';
+      newProduct.innerHTML = `
+      <div class="control is-expanded">
+        <input class="input" type="text" name="items[${productIndex}].nombre" placeholder="Nombre del producto" required>
+      </div>
+      <div class="control">
+        <button type="button" class="button is-danger quitar-producto">
+          ✕
+        </button>
+      </div>
+    `;
+
+      container.appendChild(newProduct);
+      productIndex++;
+
+      // Habilitar botones de eliminar
+      document.querySelectorAll('.quitar-producto').forEach(btn => {
+        btn.disabled = false;
+      });
+    });
+
+    // Eliminar productos
+    container.addEventListener('click', (e) => {
+      if(e.target.classList.contains('quitar-producto')) {
+        e.target.closest('.producto').remove();
+        productIndex--;
+      }
+    });
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Actualizar Lista de Compra</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+</head>
+<body>
+
+<div class="container">
+  <h1 class="title is-2">Actualizar Lista de Compra</h1>
+
+  <form th:action="@{/foodhub/listacompra/actualizar/{id}(id=${lista.id})}" method="post">
+    <div class="field">
+      <label class="label">Título de la lista</label>
+      <div class="control">
+        <input type="text" class="input" th:value="${lista.titulo}" th:name="titulo" />
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Fecha de creación</label>
+      <div class="control">
+        <input type="text" class="input" th:value="${lista.fecha}" th:name="fecha" />
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Productos</label>
+      <div class="control">
+        <ul>
+          <li th:each="item : ${lista.items}">
+            <label class="checkbox">
+              <input type="checkbox"
+                     th:checked="${item['estado'] == 'COMPRADO'}">
+              <span th:text="${item['nombre']}">Producto</span>
+            </label>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="control">
+        <button type="submit" class="button is-primary">Actualizar</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+</body>
+</html>
