@@ -6,9 +6,7 @@ package org.molerodev.foodhubapi.entity;
  * Create Time: 26/2/25
  */
 
-import jakarta.persistence.Embeddable;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.molerodev.foodhubapi.model.Estado;
@@ -18,7 +16,6 @@ import org.molerodev.foodhubapi.model.Estado;
 @Embeddable
 public class Item {
 
-    private Long id;
 
     private String nombre;
 

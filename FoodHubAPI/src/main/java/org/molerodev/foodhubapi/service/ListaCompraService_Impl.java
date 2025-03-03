@@ -2,8 +2,9 @@ package org.molerodev.foodhubapi.service;
 
 import org.modelmapper.ModelMapper;
 import org.molerodev.foodhubapi.dto.ListaCompraDTO;
+import org.molerodev.foodhubapi.entity.Item;
 import org.molerodev.foodhubapi.entity.ListaCompra;
-import org.molerodev.foodhubapi.entity.Producto;
+import org.molerodev.foodhubapi.model.Estado;
 import org.molerodev.foodhubapi.repository.ListaCompraRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,6 +42,7 @@ public class ListaCompraService_Impl implements IService<ListaCompra, ListaCompr
 
     @Override
     public ListaCompra save(ListaCompraDTO listaCompraDTO) {
+        listaCompraDTO.getItems().forEach(item -> item.setEstado(Estado.NO_COMPRADO));
         return listaCompraRepository.save(convertToEntity(listaCompraDTO));
     }
 
@@ -49,9 +51,24 @@ public class ListaCompraService_Impl implements IService<ListaCompra, ListaCompr
         ListaCompra lista = listaCompraRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("No se ha encontrado"));
 
-        modelMapper.map(listaDetails, lista);
+        // Actualizar campos básicos
+        lista.setTitulo(listaDetails.getTitulo());
+        lista.setFecha(listaDetails.getFecha());
 
-        return lista;
+        // Actualizar cada item individualmente
+        if (listaDetails.getItems() != null) {
+            for (int i = 0; i < listaDetails.getItems().size(); i++) {
+                Item itemDTO =listaDetails.getItems().get(i);
+                Item item = lista.getItems().get(i);
+
+                // Actualizar estado solo si viene en el DTO
+                if (itemDTO.getEstado() != null) {
+                    item.setEstado(itemDTO.getEstado());
+                }
+            }
+        }
+
+        return listaCompraRepository.save(lista);
     }
 
     @Override

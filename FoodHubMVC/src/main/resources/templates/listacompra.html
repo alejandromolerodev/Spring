@@ -38,7 +38,7 @@
               <label class="checkbox">
                 <input type="checkbox"
                        th:checked="${item['estado'] == 'COMPRADO'}"
-                       th:disabled="${lista.fecha == null or !T(java.time.LocalDate).parse(lista.fecha).isEqual(T(java.time.LocalDate).now())}">
+                       th:disabled="${item}">
                 <span th:text="${item['nombre']}">Producto</span>
               </label>
             </li>

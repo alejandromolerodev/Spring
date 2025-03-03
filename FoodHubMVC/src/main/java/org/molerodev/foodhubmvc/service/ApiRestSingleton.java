@@ -60,11 +60,9 @@ public class ApiRestSingleton {
     }
 
 
-    public void actualizarLC(String apiUrl, String endpoint, ListaCompraDTO requestBody) {
-        String url = UriComponentsBuilder.fromHttpUrl(apiUrl)
-                .path(endpoint)
-                .toUriString();
-        restTemplate.put(url, requestBody);
+    public void actualizarLC(String apiUrl, String endpoint, ListaCompraDTO listaCompraDTO) {
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.put(apiUrl + endpoint, listaCompraDTO); // Debe enviar el objeto completo
     }
 
     public ListaCompraDTO getLCforIDFromApi(String apiUrl, String endpoint, Long id) {

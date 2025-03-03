@@ -1,5 +1,7 @@
 package org.molerodev.foodhubmvc.controller;
 
+import org.molerodev.foodhubmvc.model.Estado;
+import org.molerodev.foodhubmvc.model.ItemDTO;
 import org.molerodev.foodhubmvc.model.ListaCompraDTO;
 import org.molerodev.foodhubmvc.service.ApiRestSingleton;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +56,7 @@ public class ListaCompraController {
         String endpoint = "/" + id;
         ListaCompraDTO listaCompraDTO = apiRestSingleton.getLCforIDFromApi(apiUrl, endpoint, id);
 
+
         // Agregar la lista al modelo
         model.addAttribute("lista", listaCompraDTO);
 
@@ -69,16 +72,20 @@ public class ListaCompraController {
             @PathVariable Long id,
             @ModelAttribute ListaCompraDTO listaCompraDTO) {
 
-        // Aquí, `listaCompraDTO` tendrá los cambios del estado de los productos
-        String apiUrl = "http://localhost:8080/foodhub/listacompra";
-        String endpoint = "/" + id; // Asegúrate de que el endpoint coincida con el API
+        // Actualizar estados basado en el checkbox
+        listaCompraDTO.getItems().forEach(item -> {
+            if (item.getEstado() == null) {
+                item.setEstado(Estado.NO_COMPRADO); // Checkbox no marcado
+            } else {
+                item.setEstado(Estado.COMPRADO);    // Checkbox marcado
+            }
+        });
 
-        // Realizamos la actualización mediante la API
-        apiRestSingleton.actualizarLC(apiUrl, endpoint, listaCompraDTO);
+        apiRestSingleton.actualizarLC("http://localhost:8080/foodhub/listacompra", "/" + id, listaCompraDTO);
 
-        // Redirigir a la página de listas de compra después de la actualización
         return "redirect:/foodhub/listacompra";
     }
+
 
 
 }

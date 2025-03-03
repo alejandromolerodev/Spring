@@ -30,11 +30,16 @@
       <label class="label">Productos</label>
       <div class="control">
         <ul>
-          <li th:each="item : ${lista.items}">
+          <li th:each="item, stat : ${lista.items}">
             <label class="checkbox">
+              <!-- Campo oculto para el índice del ítem -->
+              <input type="hidden" th:name="|items[${stat.index}].nombre|" th:value="${item.nombre}"/>
+
               <input type="checkbox"
-                     th:checked="${item['estado'] == 'COMPRADO'}">
-              <span th:text="${item['nombre']}">Producto</span>
+                     th:checked="${item.estado == T(org.molerodev.foodhubmvc.model.Estado).COMPRADO}"
+                     th:name="|items[${stat.index}].estado|"
+                     th:value="COMPRADO"/>
+              <span th:text="${item.nombre}">Producto</span>
             </label>
           </li>
         </ul>
