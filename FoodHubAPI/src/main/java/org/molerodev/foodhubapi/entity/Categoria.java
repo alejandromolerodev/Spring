@@ -22,7 +22,4 @@ public class Categoria {
     @Column(name = "Nombre")
     private String nombre;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "Subcategoría")
-    private Categoria subcategoria;
 }

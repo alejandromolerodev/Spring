@@ -34,7 +34,7 @@ public class EdamamAPIClient {
 
     public RecetasResponse obtenerRecetasList(String ingrediente) {
         // Construir la URL con parámetros de búsqueda
-        String url = UriComponentsBuilder.fromHttpUrl(API_URL)
+        String url = UriComponentsBuilder.fromUriString(API_URL)
                 .queryParam("q", ingrediente)       // Ingrediente a buscar
                 .queryParam("app_id", APP_ID)       // Añadir app_id
                 .queryParam("app_key", APP_KEY)     // Añadir app_key
