@@ -83,4 +83,13 @@ public class ProductoController {
     }
 
 
+    @PostMapping("/despensa/producto/{id}")
+    public String deleteProduct(@PathVariable Long id) {
+        String apiUrl = "http://localhost:8080/foodhub"; // Ajusta según sea necesario
+        String endpoint = "/" + id; // Endpoint para eliminar un producto
+        apiRestSingleton.deleteProductoFromApi(apiUrl, endpoint);
+        return "redirect:/foodhub/despensa"; // Retorna 204 No Content
+    }
+
+
 }

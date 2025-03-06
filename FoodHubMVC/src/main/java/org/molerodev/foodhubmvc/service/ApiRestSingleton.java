@@ -72,4 +72,12 @@ public class ApiRestSingleton {
                 .toUriString();
         return restTemplate.getForObject(url, ListaCompraDTO.class);
     }
+
+
+    public void deleteProductoFromApi(String apiUrl, String endpoint) {
+        String url = UriComponentsBuilder.fromHttpUrl(apiUrl)
+                .path(endpoint)
+                .toUriString();
+        restTemplate.delete(url);
+    }
 }

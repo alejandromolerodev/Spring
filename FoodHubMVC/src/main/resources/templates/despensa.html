@@ -130,6 +130,10 @@
                     </span>
                   </p>
 
+                  <form th:action="@{/foodhub/despensa/producto/{id}(id=${producto.id})}" method="post">
+                    <input type="hidden" name="_method" value="delete"/>
+                    <button type="submit" class="button is-danger is-fullwidth">Eliminar</button>
+                  </form>
 
                 </div>
               </div>
