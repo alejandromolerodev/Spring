@@ -39,7 +39,7 @@ public class Producto {
     @Enumerated(EnumType.STRING)
     private NutriScore nutriScore;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "Categoría")
     private Categoria categoria;
 

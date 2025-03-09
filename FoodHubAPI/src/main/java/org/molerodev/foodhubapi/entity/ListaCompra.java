@@ -6,6 +6,7 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -28,7 +29,7 @@ public class ListaCompra {
 
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-mm-dd")
-    private LocalDate fecha;
+    private Date fecha;
 
     @ElementCollection
     private List<Item> items;
