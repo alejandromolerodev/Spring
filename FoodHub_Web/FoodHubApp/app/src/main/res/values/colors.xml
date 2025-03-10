@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#F1F1F1</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#6DBE45</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#A8D08D</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="colorPrimary">#FF6200EE</color> <!-- Color principal -->
+    <color name="colorAccent">#FF03DAC5</color> <!-- Color de acento -->
+    <color name="red">#FF0000</color> <!-- Para advertencias -->
+    <color name="rojo">#FE495F</color>
+    <color name="rosa">#FE9D97</color>
+    <color name="amarillo">#FFFEC8</color>
+    <color name="verde_claro">#D8FD94</color>
+    <color name="verde_oscuro">#BDED7E</color>
+</resources>

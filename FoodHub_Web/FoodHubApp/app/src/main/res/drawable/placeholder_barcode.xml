@@ -1,0 +1,22 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="60dp"
+    android:viewportWidth="200"
+    android:viewportHeight="60">
+
+    <!-- Fondo gris claro -->
+    <path
+        android:fillColor="#F5F5F5"
+        android:pathData="M0,0h200v60H0z"/>
+
+    <!-- Líneas de código de barras simuladas -->
+    <path
+        android:fillColor="#BDBDBD"
+        android:pathData="M20 10v40h10V10z
+                         M40 15v35h8V15z
+                         M60 5v50h12V5z
+                         M85 10v40h7V10z
+                         M105 20v30h9V20z
+                         M125 15v35h6V15z
+                         M145 10v40h10V10z"/>
+</vector>

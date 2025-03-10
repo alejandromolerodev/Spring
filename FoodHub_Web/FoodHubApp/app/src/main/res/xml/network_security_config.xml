@@ -1,0 +1,7 @@
+<network-security-config>
+    <!-- Permite conexiones HTTP a tu IP local -->
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">192.168.21.241</domain> <!-- IP del emulador -->
+        <domain includeSubdomains="true">localhost</domain>
+    </domain-config>
+</network-security-config>

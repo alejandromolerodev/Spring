@@ -1,0 +1,37 @@
+<!-- res/drawable/placeholder_comida.xml -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+
+    <!-- Plato circular -->
+    <path
+        android:fillColor="#F0F0F0"
+        android:pathData="M10,50a40,40 0 1,0 80,0a40,40 0 1,0 -80,0"
+        android:strokeColor="#E0E0E0"
+        android:strokeWidth="2"/>
+
+    <!-- Comida genérica (líneas onduladas) -->
+    <path
+        android:fillColor="#D6D6D6"
+        android:pathData="M25,55 Q35,45 45,55 Q55,65 65,55 Q75,45 85,55 L85,70 L25,70 Z"/>
+
+    <!-- Tenedor -->
+    <path
+        android:fillColor="#C0C0C0"
+        android:pathData="M75,20
+            v15
+            h-5
+            v-5
+            l-5,-10
+            v25
+            h-2
+            v-25
+            l-5,10
+            v5
+            h-5
+            v-15
+            z"/>
+
+</vector>

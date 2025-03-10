@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Fondo del placeholder -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#D3D3D3" /> <!-- Gris claro -->
+            <corners android:radius="8dp" />
+        </shape>
+    </item>
+
+    <!-- Texto del placeholder -->
+    <item>
+        <bitmap
+            android:gravity="center"
+            android:src="@android:drawable/ic_dialog_info" />
+    </item>
+
+</layer-list>

@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">FoodHub</string>
+    <string name="title_despensa">Despensa</string>
+    <string name="title_lista_compra">Lista de la Compra</string>
+    <string name="title_recetas">Recetas</string>
+    <string name="turn_on_flashlight">Encender linterna</string>
+    <string name="turn_off_flashlight">Apagar linterna</string>
+    <string name="scan_from_fragment">Escanear desde fragmento</string>
+    <string name="scan_from_activity">Escanear desde actividad</string>
+    <string name="informacion_no_encontrada">Información no encontrada</string>
+    <string name="nutri_score">Nutri Score:</string>
+    <string name="desc_imagen_producto">Imagen del producto</string>
+    <string name="informacion_nutricional">Información Nutricional</string>
+    <string name="nutriente">Nutriente</string>
+    <string name="por_100g">Por 100g</string>
+    <string name="marca">Marca:</string>
+    <string name="cantidad">Cantidad:</string>
+    <string name="categorias">Categorías:</string>
+    <string name="subcategorias">Subcategorías:</string>
+    <string name="ingredientes">Ingredientes:</string>
+    <string name="tienda">Tienda:</string>
+    <string name="scan_prompt">Escanea un código de barras</string>
+    <string name="no_products">No hay productos en la despensa</string>
+    <string name="scanned_barcode">Código escaneado: %s</string>
+    <string name="codigo_barras">Código de barras</string>
+    <string name="confirmar_eliminacion">¿Eliminar este producto?</string>
+    <string name="si">Sí</string>
+    <string name="no">No</string>
+</resources>

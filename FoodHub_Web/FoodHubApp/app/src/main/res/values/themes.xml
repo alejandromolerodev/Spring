@@ -1,0 +1,32 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.FoodHub" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/verde_oscuro</item>
+        <item name="colorPrimaryDark">@color/verde_oscuro</item>
+        <item name="colorAccent">@color/verde_claro</item>
+        <item name="android:windowBackground">@color/amarillo</item>
+        <item name="android:textColor">@color/rojo</item>
+        <!-- Customize your theme here. -->
+        <!-- Colores del texto en la Toolbar -->
+        <item name="android:textColorPrimary">@color/rojo</item>
+        <item name="toolbarStyle">@style/CustomToolbarStyle</item>
+        <item name="android:navigationBarColor">@color/verde_oscuro</item>
+
+    </style>
+    <!-- Estilo personalizado para la Toolbar -->
+    <style name="CustomToolbarStyle" parent="Widget.MaterialComponents.Toolbar">
+        <item name="android:background">@color/verde_oscuro</item>
+        <item name="titleTextColor">@color/rojo</item>
+        <item name="subtitleTextColor">@color/rojo</item>
+        <item name="android:textColorPrimary">@color/rojo</item>
+        <item name="android:textColorSecondary">@color/rojo</item>
+    </style>
+    <style name="FullScreenDialog" parent="Theme.MaterialComponents.DayNight.Dialog">
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+</resources>

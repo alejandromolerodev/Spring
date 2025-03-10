@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bienvenida</title>
+  <!-- Importar Bulma desde un CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" rel="stylesheet">
+  <style>
+    /* Personalización de colores usando la paleta proporcionada */
+    :root {
+      --color-primary: #aad574;    /* Verde clarito oscuro */
+      --color-link: #fe9d97;       /* Rosa claro */
+      --color-light: #fffec8;      /* Amarillo claro */
+      --color-danger: #fe495f;     /* Rojo */
+      --color-warning: #bded7e;    /* Verde pasto */
+    }
+
+    /* Sobrescribir colores de Bulma */
+    .hero.is-primary {
+      background-color: var(--color-primary); /* Verde clarito oscuro */
+    }
+
+    .title {
+      color: var(--color-light); /* Amarillo claro */
+    }
+
+    .subtitle {
+      color: var(--color-link); /* Rosa claro */
+    }
+
+    .button.is-danger {
+      background-color: var(--color-danger); /* Rojo */
+      border-color: var(--color-danger);
+    }
+
+    .button.is-danger:hover {
+      background-color: var(--color-link); /* Rosa claro al pasar el mouse */
+      border-color: var(--color-link);
+    }
+
+    .button.is-info {
+      background-color: var(--color-primary); /* Verde clarito oscuro */
+      border-color: var(--color-primary);
+    }
+
+    .button.is-info:hover {
+      background-color: var(--color-warning); /* Verde pasto al pasar el mouse */
+      border-color: var(--color-warning);
+    }
+
+    /* Botones adicionales para cada color */
+    .button.custom-danger {
+      background-color: var(--color-danger); /* Rojo */
+      border-color: var(--color-danger);
+    }
+
+    .button.custom-link {
+      background-color: var(--color-link); /* Rosa claro */
+      border-color: var(--color-link);
+    }
+
+    .button.custom-light {
+      background-color: var(--color-light); /* Amarillo claro */
+      border-color: var(--color-light);
+    }
+
+    .button.custom-warning {
+      background-color: var(--color-warning); /* Verde pasto */
+      border-color: var(--color-warning);
+    }
+  </style>
+</head>
+<body>
+<!-- Contenedor principal -->
+<section class="hero is-primary is-fullheight">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <img src="/images/logo_comida_restaurante_concepto_chat_337180_889.jpg" alt="Logo de FoodHub" style="max-width: 200px; margin-bottom: 20px;">
+      <h1 class="title">
+        ¡Bienvenido a FoodHub!
+      </h1>
+      <h2 class="subtitle">
+        Nos alegra tenerte aquí. Disfruta de Foodhub.
+      </h2>
+      <div class="buttons is-centered">
+        <a href="/foodhub/despensa" class="button custom-link is-large">Mi despensa</a>
+        <a href="/foodhub/listacompra" class="button custom-link is-large">Lista de la compra</a>
+        <a href="/foodhub/recetas" class="button custom-link is-large">Recetas</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Opcional: Script de Bulma si necesitas funcionalidades adicionales -->
+<script src="https://cdn.jsdelivr.net/npm/bulma@0.9.4/js/bulma.min.js"></script>
+</body>
+</html>

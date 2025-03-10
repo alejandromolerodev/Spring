@@ -1,0 +1,17 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="100dp"
+    android:height="100dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+
+    <!-- Fondo circular rojo -->
+    <path
+        android:fillColor="#FF5252"
+        android:pathData="M50,0A50,50 0,1 1,0 50A50,50 0,0 1,50 0z"/>
+
+    <!-- Signo de exclamación blanco -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M45 25h10v35H45z
+                         M45 70h10v10H45z"/>
+</vector>

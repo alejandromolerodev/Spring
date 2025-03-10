@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_despensa"
+    >
+
+
+    <fragment
+        android:id="@+id/navigation_lista_compra"
+        android:name="com.example.foodhub.ui.ListaCompra.ListaCompraFragment"
+        android:label="@string/title_lista_compra"
+        tools:layout="@layout/fragment_lista_compra" />
+
+    <fragment
+        android:id="@+id/navigation_despensa"
+        android:name="com.example.foodhub.ui.Despensa.DespensaFragment"
+        android:label="@string/title_despensa"
+        tools:layout="@layout/fragment_despensa" />
+
+    <fragment
+        android:id="@+id/navigation_recetas"
+        android:name="com.example.foodhub.ui.Recetas.RecipeFragment"
+        android:label="@string/title_recetas"
+        tools:layout="@layout/fragment_recetas" />
+</navigation>
