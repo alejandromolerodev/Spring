@@ -4,10 +4,12 @@ import org.molerodev.foodhubapi.dto.ProductoDTO;
 import org.molerodev.foodhubapi.entity.Producto;
 import org.molerodev.foodhubapi.service.IService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /*
@@ -58,6 +60,14 @@ public class ProductoController {
         Producto updatedProducto = iPService.updateProducto(id, producto);
         return new ResponseEntity<>(updatedProducto, HttpStatus.OK);
     }
+
+    @PutMapping("/{id}/actualizarFecha")
+public ResponseEntity<Producto> updateFechaCaducidad(@PathVariable Long id, @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate nuevaFecha) {
+    Producto updatedProducto = iPService.updateFecha(id, nuevaFecha);
+    return new ResponseEntity<>(updatedProducto, HttpStatus.OK);
+}
+
+    
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {

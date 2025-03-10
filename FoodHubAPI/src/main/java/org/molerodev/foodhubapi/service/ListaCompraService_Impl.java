@@ -7,8 +7,10 @@ import org.molerodev.foodhubapi.entity.ListaCompra;
 import org.molerodev.foodhubapi.model.Estado;
 import org.molerodev.foodhubapi.repository.ListaCompraRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,6 +44,7 @@ public class ListaCompraService_Impl implements IService<ListaCompra, ListaCompr
 
     @Override
     public ListaCompra save(ListaCompraDTO listaCompraDTO) {
+        
         listaCompraDTO.getItems().forEach(item -> item.setEstado(Estado.NO_COMPRADO));
         return listaCompraRepository.save(convertToEntity(listaCompraDTO));
     }
@@ -86,5 +89,11 @@ public class ListaCompraService_Impl implements IService<ListaCompra, ListaCompr
     @Override
     public ListaCompraDTO convertToDTO(ListaCompra listaCompra) {
         return modelMapper.map(listaCompra, ListaCompraDTO.class);
+    }
+
+    @Override
+    public ListaCompra updateFecha(Long id, LocalDate fecha) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'updateFecha'");
     }
 }

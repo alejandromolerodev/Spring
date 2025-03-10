@@ -6,6 +6,82 @@
   <title>Listas de Compra</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
   <style>
+    /* Personalización de colores usando la paleta proporcionada */
+    :root {
+      --color-primary: #d8fd94; /* Verde clarito */
+      --color-link: #fe9d97; /* Rosa claro */
+      --color-light: #fffec8; /* Amarillo claro */
+      --color-danger: #fe495f; /* Rojo */
+      --color-warning: #bded7e; /* Verde pasto */
+      --color-dark-green: #006400; /* Verde oscuro */
+    }
+
+    /* Sobrescribir colores de Bulma */
+    .hero.is-primary {
+      background-color: var(--color-primary); /* Verde clarito */
+    }
+
+    .title {
+      font-size: 4rem; /* Título más grande */
+      font-weight: bold;
+      text-align: center;
+      padding: 20px; /* Espacio alrededor del título */
+      border: 3px solid var(--color-dark-green); /* Borde alrededor del título */
+      border-radius: 10px; /* Bordes redondeados */
+      background-color: var(--color-light); /* Fondo amarillo claro */
+      color: var(--color-dark-green) !important; /* Asegura que el color negro se aplique */
+    }
+
+    .subtitle {
+      color: var(--color-link); /* Rosa claro */
+    }
+
+    /* Botón rojo con padding y espaciado */
+    .button.is-danger {
+      background-color: var(--color-danger); /* Rojo */
+      border-color: var(--color-danger);
+      padding: 15px 30px; /* Añadido padding */
+      margin-top: 20px; /* Espaciado arriba del botón */
+      margin-bottom: 20px; /* Espaciado abajo del botón */
+    }
+
+    .button.is-danger:hover {
+      background-color: var(--color-link); /* Rosa claro al pasar el mouse */
+      border-color: var(--color-link);
+    }
+
+    .button.is-info {
+      background-color: var(--color-primary); /* Verde clarito */
+      border-color: var(--color-primary);
+      color: var(--color-dark-green);
+    }
+
+    .button.is-info:hover {
+      background-color: var(--color-warning); /* Verde pasto al pasar el mouse */
+      border-color: var(--color-warning);
+    }
+
+    /* Añadir sombra a las cartas */
+    .card {
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+      transition: box-shadow 0.3s ease-in-out; /* Transición suave */
+    }
+
+    .card:hover {
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada al pasar el mouse */
+    }
+
+    /* Fondo verde clarito para el cuerpo de la página */
+    body {
+      background-color: var(--color-primary); /* Verde clarito */
+    }
+
+    /* Alinear el botón de quitar producto con el campo de texto */
+    .producto .control {
+      display: flex;
+      align-items: center;
+    }
+
     .disabled-button {
       cursor: not-allowed;
       opacity: 0.5;

@@ -3,6 +3,7 @@ package org.molerodev.foodhubapi.service;
 import org.molerodev.foodhubapi.dto.ProductoDTO;
 import org.molerodev.foodhubapi.entity.Producto;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /*
@@ -25,6 +26,8 @@ public interface IService<T,K> {
     T convertToEntity(K k);
 
     K convertToDTO(T t);
+
+    T updateFecha(Long id, LocalDate fecha);
 
 
 }

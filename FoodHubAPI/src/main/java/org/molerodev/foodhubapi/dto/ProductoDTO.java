@@ -14,6 +14,7 @@ import org.molerodev.foodhubapi.entity.Categoria;
 import org.molerodev.foodhubapi.model.NutriScore;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
@@ -30,7 +31,7 @@ public class ProductoDTO {
     private String empNombre;
 
     @DateTimeFormat(pattern = "yyyy-mm-dd")
-    private Date fechaCad;
+    private LocalDate fechaCad;
 
     private NutriScore nutriScore;
 

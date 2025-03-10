@@ -27,9 +27,9 @@ public class ListaCompra {
 
     private String titulo;
 
-    @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-mm-dd")
-    private Date fecha;
+    private LocalDate fecha;
+
 
     @ElementCollection
     private List<Item> items;

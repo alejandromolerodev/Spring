@@ -6,11 +6,12 @@ import org.molerodev.foodhubmvc.service.ApiRestSingleton;
 import org.molerodev.foodhubmvc.service.BarcodeScannerService;
 import org.molerodev.foodhubmvc.service.OpenFoodFactsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -29,7 +30,6 @@ public class ProductoController {
     @Autowired
     private ModelMapper modelMapper;
 
-
     @GetMapping
     public String Bienvenida() {
         return "bienvenida";
@@ -37,59 +37,72 @@ public class ProductoController {
 
     @GetMapping("/despensa")
     public String despensa(Model model) {
-        // URL base de la API
-        String apiUrl = "http://localhost:8080/foodhub"; // Ajusta según sea necesario
-        String endpoint = ""; // Endpoint para obtener todos los productos (getAll)
+        String apiUrl = "http://localhost:8080/foodhub";
+        String endpoint = "";
 
-        // Hacer la llamada a la API
         List<ProductoDTO> productos = apiRestSingleton.getProductoFromApi(apiUrl, endpoint);
-
-        // Agregar los productos al modelo
         model.addAttribute("productos", productos);
 
-        // Retornar la vista correspondiente
-        return "despensa"; // Asegúrate de que esta vista exista
+        return "despensa";
     }
 
     @GetMapping("/despensa/nuevo")
     public String nuevoProducto() {
-        // Redirige a la vista de la cámara
         return "camera-view";
     }
 
     @GetMapping("/despensa/scan")
-    @ResponseBody // Para devolver directamente el resultado como texto
+    @ResponseBody
     public String scanBarcode() {
-        return barcodeScannerService.scanBarcode(); // Llama al servicio para escanear el código de barras
+        return barcodeScannerService.scanBarcode();
     }
 
-
-    // Endpoint para obtener los detalles de un producto por su código de barras
     @GetMapping("/despensa/producto/{barcode}")
     public ProductoDTO getProductDetails(@PathVariable String barcode) {
-        String apiUrl = "http://localhost:8080/foodhub"; // Ajusta según sea necesario
-        String endpoint = ""; // Endpoint para crear un nuevo producto
-        // Obtener el producto desde Open Food Facts
+        String apiUrl = "http://localhost:8080/foodhub";
+        String endpoint = "";
+
         ProductoDTO producto = new ProductoDTO();
-        modelMapper.map(openFoodFactsService.getProductByBarcode(barcode),producto);
-        apiRestSingleton.postProductoToApi(apiUrl,endpoint,producto);
+        modelMapper.map(openFoodFactsService.getProductByBarcode(barcode), producto);
+        apiRestSingleton.postProductoToApi(apiUrl, endpoint, producto);
 
         if (producto != null) {
-            System.out.println(producto.getNombre()+" - "+ producto.getNutriScore() +" - "+ producto.getCategoria());
-            return producto; // Retorna el producto si se encontró
+            System.out.println(producto.getNombre() + " - " + producto.getNutriScore() + " - " + producto.getCategoria());
+            return producto;
         } else {
-            return null; // Retorna 404 si no se encontró
+            return null;
         }
     }
 
-
     @PostMapping("/despensa/producto/{id}")
     public String deleteProduct(@PathVariable Long id) {
-        String apiUrl = "http://localhost:8080/foodhub"; // Ajusta según sea necesario
-        String endpoint = "/" + id; // Endpoint para eliminar un producto
+        String apiUrl = "http://localhost:8080/foodhub";
+        String endpoint = "/" + id;
         apiRestSingleton.deleteProductoFromApi(apiUrl, endpoint);
-        return "redirect:/foodhub/despensa"; // Retorna 204 No Content
+        return "redirect:/foodhub/despensa";
     }
 
+    @PostMapping("/despensa/producto/{id}/actualizarFecha")
+public String actualizarFechaCaducidad(@PathVariable Long id, @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate nuevaFecha) {
+    String apiUrl = "http://localhost:8080/foodhub";
+    String endpoint = "/" + id;
+
+    // Obtener el producto desde la API usando el ID
+    ProductoDTO producto = apiRestSingleton.getProductoByIdFromApi(apiUrl, endpoint, id);
+
+    if (producto != null) {
+        // Actualizamos la fecha de caducidad del producto
+        producto.setFechaCad(nuevaFecha);
+
+        // Enviar la actualización a la API usando el método PUT
+        apiRestSingleton.putProductoToApi(apiUrl, endpoint, producto);
+
+        // Redirigir de vuelta a la lista de productos
+        return "redirect:/foodhub/despensa";
+    }
+
+    // Si el producto no existe, redirigir a la lista de productos
+    return "redirect:/foodhub/despensa";
+}
 
 }

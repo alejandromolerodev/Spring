@@ -10,8 +10,10 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.molerodev.foodhubapi.model.NutriScore;
+import org.springframework.cglib.core.Local;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Setter
@@ -34,12 +36,12 @@ public class Producto {
 
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-mm-dd")
-    private Date fechaCad;
+    private LocalDate fechaCad;
 
     @Enumerated(EnumType.STRING)
     private NutriScore nutriScore;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "Categoría")
     private Categoria categoria;
 

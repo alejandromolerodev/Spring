@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mi Despensa</title>
-  <!-- Importar Bulma desde un CDN -->
   <link href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" rel="stylesheet">
   <style>
     /* Personalización de colores usando la paleta proporcionada */
@@ -113,22 +112,20 @@
                     <span th:if="${producto.nutriScore == 'A'}">
                         <img src="/images/nutriscore-A.png" alt="NutriScore A" style="width: 100px; height: auto; display: block; margin-top: 10px;" />
                     </span>
-                                    <span th:if="${producto.nutriScore == 'B'}">
-                        <img src="/images/nutriscore-B.png" alt="NutriScore B" style="width: 100px; height: auto; display: block; margin-top: 10px;" />
-                    </span>
-                                    <span th:if="${producto.nutriScore == 'C'}">
-                        <img src="/images/nutriscore-C.png" alt="NutriScore C" style="width: 100px; height: auto; display: block; margin-top: 10px;" />
-                    </span>
-                                    <span th:if="${producto.nutriScore == 'D'}">
-                        <img src="/images/nutriscore-D.png" alt="NutriScore D" style="width: 100px; height: auto; display: block; margin-top: 10px;" />
-                    </span>
-                                    <span th:if="${producto.nutriScore == 'E'}">
-                        <img src="/images/nutriscore-E.png" alt="NutriScore E" style="width: 100px; height: auto; display: block; margin-top: 10px;" />
-                    </span>
-                                    <span th:if="${producto.nutriScore == 'UNKNOWN'}">
-                        <img src="/images/nutriscore-UKNOWN.png" alt="NutriScore UKNOWN" style="width: 100px; height: auto; display: block; margin-top: 10px;" />
-                    </span>
+                    <!-- Agregar más imágenes de NutriScore aquí -->
                   </p>
+
+                  <!-- Formulario para actualizar la fecha de caducidad -->
+                  <form th:action="@{/foodhub/despensa/producto/{id}/actualizarFecha(id=${producto.id})}" method="post">
+                    <div class="field">
+                      <label class="label">Nueva Fecha de Caducidad:</label>
+                      <div class="control">
+                        <input type="date" class="input" name="nuevaFecha" required/>
+                      </div>
+                    </div>
+                    <button type="submit" class="button is-info">Actualizar Fecha de Caducidad</button>
+                  </form>
+                  
 
                   <form th:action="@{/foodhub/despensa/producto/{id}(id=${producto.id})}" method="post">
                     <input type="hidden" name="_method" value="delete"/>
@@ -146,8 +143,8 @@
 </section>
 
 <div class="has-text-centered mt-6">
-
   <a href="/foodhub" class="button is-danger is-large">Volver</a>
 </div>
+
 </body>
 </html>

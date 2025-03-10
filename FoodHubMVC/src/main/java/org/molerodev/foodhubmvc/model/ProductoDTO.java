@@ -2,8 +2,11 @@ package org.molerodev.foodhubmvc.model;
 
 import lombok.Getter;
 import lombok.Setter;
+
+import org.springframework.cglib.core.Local;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 /*
@@ -19,8 +22,10 @@ public class ProductoDTO {
     private String url_image;
     private String nombre;
     private String empNombre;
-    @DateTimeFormat(pattern = "yyyy-mm-dd")
-    private Date fechaCad;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate fechaCad;
+
     private NutriScore nutriScore;
     private CategoriaDTO categoria;
     private String peso;

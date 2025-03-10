@@ -31,7 +31,6 @@ public class ApiRestSingleton {
         String url = UriComponentsBuilder.fromHttpUrl(apiUrl)
                 .path(endpoint)
                 .toUriString();
-        // Usamos RestTemplate para convertir directamente la respuesta a una lista de ProductoDTO
         return restTemplate.getForObject(url, List.class);
     }
 
@@ -47,9 +46,7 @@ public class ApiRestSingleton {
         String url = UriComponentsBuilder.fromHttpUrl(apiUrl)
                 .path(endpoint)
                 .toUriString();
-
-        return restTemplate.getForObject(url,List.class);
-
+        return restTemplate.getForObject(url, List.class);
     }
 
     public String postLCToApi(String apiUrl, String endpoint, ListaCompraDTO requestBody){
@@ -59,10 +56,8 @@ public class ApiRestSingleton {
         return restTemplate.postForObject(url, requestBody, String.class);
     }
 
-
     public void actualizarLC(String apiUrl, String endpoint, ListaCompraDTO listaCompraDTO) {
-        RestTemplate restTemplate = new RestTemplate();
-        restTemplate.put(apiUrl + endpoint, listaCompraDTO); // Debe enviar el objeto completo
+        restTemplate.put(apiUrl + endpoint, listaCompraDTO);
     }
 
     public ListaCompraDTO getLCforIDFromApi(String apiUrl, String endpoint, Long id) {
@@ -73,11 +68,25 @@ public class ApiRestSingleton {
         return restTemplate.getForObject(url, ListaCompraDTO.class);
     }
 
-
     public void deleteProductoFromApi(String apiUrl, String endpoint) {
         String url = UriComponentsBuilder.fromHttpUrl(apiUrl)
                 .path(endpoint)
                 .toUriString();
         restTemplate.delete(url);
+    }
+
+    public void putProductoToApi(String apiUrl, String endpoint, ProductoDTO requestBody) {
+        String url = UriComponentsBuilder.fromHttpUrl(apiUrl)
+                .path(endpoint)
+                .toUriString();
+        restTemplate.put(url, requestBody);
+    }
+
+    // Nuevo método para obtener un producto por su ID
+    public ProductoDTO getProductoByIdFromApi(String apiUrl, String endpoint, Long id) {
+        String url = UriComponentsBuilder.fromHttpUrl(apiUrl)
+                .path(endpoint)
+                .toUriString();
+        return restTemplate.getForObject(url, ProductoDTO.class);
     }
 }
